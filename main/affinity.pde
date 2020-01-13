@@ -1,11 +1,13 @@
 class Affinity
 {
   pt M1, M2, T; // Columns of a 2x3 matrix
+  pt F; // fixed point
   
   Affinity() {
     M1 = new pt();
     M2 = new pt();
     T = new pt();
+    F = new pt();
   }
   
   vec velocity(pt p) {

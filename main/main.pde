@@ -14,7 +14,9 @@ void setup() {
 void draw() {
   background(#FFFFFF);
   if (P.nv >= 6) {
-    compute_velocity_affinity(P.G[0], P.G[2], P.G[4], V(P.G[0], P.G[1]), V(P.G[2], P.G[3]), V(P.G[4], P.G[5]), A.M1, A.M2, A.T);
+    compute_velocity_affinity(P.G[0], P.G[2], P.G[4], V(P.G[0], P.G[1]), V(P.G[2], P.G[3]), V(P.G[4], P.G[5]), A);
+    stroke(red); strokeWeight(3); fill(red);
+    ellipse(A.F.x, A.F.y, 10, 10);
   }
   stroke(black); strokeWeight(3);
   P.drawArrowsAndPoints();  
