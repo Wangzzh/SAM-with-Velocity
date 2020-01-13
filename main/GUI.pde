@@ -34,8 +34,7 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='a') ; 
     if(key=='b') ; 
     if(key=='c') ;
-    debug = false;
-    if(key=='d') {debug = true;} 
+    if(key=='d') {debug = !debug;} 
     if(key=='e') ;
     if(key=='f') {showField = !showField;}
     if(key=='g') ; 
@@ -108,7 +107,7 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='.') ;  // used in mousePressed to tweak current frame f
     if(key=='/') ;
   
-    if(key==' ') ;
+    if(key==' ') animate = !animate;
   
     if (key == CODED) 
        {

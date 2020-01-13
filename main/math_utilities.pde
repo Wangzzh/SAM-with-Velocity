@@ -62,4 +62,44 @@ void compute_velocity_affinity(pt P1, pt P2, pt P3, vec V1, vec V2, vec V3, Affi
     //println(i21 + " " + i22);
     println("Fixed point: (" + a.F.x + ", " + a.F.y + ")");
   }
+  
+  // Compute SVD
+  // M = U * S * VT
+  // https://lucidar.me/en/mathematics/singular-value-decomposition-of-a-2x2-matrix/
+  
+  float Urx = 2 * a.M1.x * a.M1.y + 2 * a.M2.x * a.M2.y;
+  float Ury = a.M1.x * a.M1.x + a.M2.x * a.M2.x - a.M1.y * a.M1.y - a.M2.y * a.M2.y;
+  float Ur = 0.5 * atan2(Urx, Ury);
+  a.U1.x = cos(Ur);
+  a.U1.y = sin(Ur);
+  a.U2.x = -sin(Ur);
+  a.U2.y = cos(Ur);
+  
+  float s1 = a.M1.x * a.M1.x + a.M2.x * a.M2.x + a.M1.y * a.M1.y + a.M2.y * a.M2.y;
+  float s2 = sqrt(Ury * Ury + Urx * Urx);
+  a.S.x = sqrt((s1 + s2) * 0.5);
+  a.S.y = sqrt((s1 - s2) * 0.5);
+  
+  float Vrx = 2 * a.M1.x * a.M2.x + 2 * a.M1.y * a.M2.y;
+  float Vry = a.M1.x * a.M1.x - a.M2.x * a.M2.x + a.M1.y * a.M1.y - a.M2.y * a.M2.y;
+  float Vr = 0.5 * atan2(Vrx, Vry);
+  float s11 = (a.M1.x * cos(Ur) + a.M1.y * sin(Ur)) * cos(Vr) + (a.M2.x * cos(Ur) + a.M2.y * sin(Ur)) * sin(Vr);
+  float s22 = (a.M1.x * sin(Ur) - a.M1.y * cos(Ur)) * sin(Vr) + (-a.M2.x * sin(Ur) + a.M2.y * cos(Ur)) * cos(Vr);
+  float sgn11 = s11 / abs(s11);
+  float sgn22 = s22 / abs(s22);
+  a.VT1.x = cos(Vr) * sgn11;
+  a.VT1.y = sin(Vr) * sgn11;
+  a.VT2.x = -sin(Vr) * sgn22;
+  a.VT2.y = cos(Vr) * sgn22;
+  
+  if (debug) {
+    println("U:");
+    println(a.U1.x + " " + a.U2.x);
+    println(a.U1.y + " " + a.U2.y);
+    println("S:");
+    println(a.S.x + " " + a.S.y);
+    println("V:");
+    println(a.VT1.x + " " + a.VT2.x);
+    println(a.VT1.y + " " + a.VT2.y);
+  }
 }
