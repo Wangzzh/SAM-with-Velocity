@@ -34,9 +34,10 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='a') ; 
     if(key=='b') ; 
     if(key=='c') ;
-    if(key=='d') ; 
+    debug = false;
+    if(key=='d') {debug = true;} 
     if(key=='e') ;
-    if(key=='f') ;
+    if(key=='f') {showField = !showField;}
     if(key=='g') ; 
     if(key=='h') ;
     if(key=='i') ; 

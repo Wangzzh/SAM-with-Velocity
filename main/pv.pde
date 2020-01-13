@@ -209,8 +209,9 @@ void arrow(pt P, vec V)
   if(n<0.01) return;  // too short a vector
   // otherwise continue
      float s=max(min(0.2,20./n),6./n);       // show V as arrow from P 
-     strokeWeight(n*s/6); show(P,V);  
-     strokeWeight(1);
+     //strokeWeight(n*s/6); 
+     show(P,V);  
+     //strokeWeight(1);
      pt Q=P(P,V); 
      vec U = S(-s,V); 
      vec W = R(S(.4,U)); 
