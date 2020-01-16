@@ -50,9 +50,9 @@ void keyPressed()  // executed each time a key is pressed: sets the Boolean "key
     if(key=='q') ; 
     if(key=='r') ; // used in mouseDrag to rotate the control points 
     if(key=='s') ;
-    if(key=='t') ; // used in mouseDrag to translate the control points 
+    if(key=='t') {showTrail = !showTrail;} // used in mouseDrag to translate the control points 
     if(key=='p') ;
-    if(key=='v') ; 
+    if(key=='v') {showVelocity = !showVelocity;} 
     if(key=='w') ;  
     if(key=='x') ;
     if(key=='y') ;

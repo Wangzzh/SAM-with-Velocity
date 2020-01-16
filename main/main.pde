@@ -1,8 +1,10 @@
 boolean debug = false;
 
 boolean showField = false;
+boolean showTrail = true;
+boolean showVelocity = true;
 boolean animate = false;
-float t = 0, dt = 0.01;
+float t = 1, dt = 0.01;
 
 pts P = new pts();
 pts Q = new pts();
@@ -18,12 +20,12 @@ void setup() {
 
 void draw() {
   background(#FFFFFF);
-  //if (animate) {
-  //  t += dt;
-  //  if (t >= 2.0) t = 0;
-  //}
+  if (animate) {
+    t += dt;
+    if (t >= 1.0) t = 0;
+  }
   
-  if (P.nv >= 6) {
+  if (P.nv >= 7) {
     compute_velocity_affinity(P.G[0], P.G[2], P.G[4], V(P.G[0], P.G[1]), V(P.G[2], P.G[3]), V(P.G[4], P.G[5]), A);
     stroke(red); strokeWeight(3); fill(red);
     ellipse(A.F.x, A.F.y, 10, 10);
@@ -46,7 +48,7 @@ void draw() {
   stroke(black); strokeWeight(3);
   P.drawArrowsAndPoints();  
   
-  if (showField) {
+  if (showField && P.nv >= 7) {
     stroke(blue); strokeWeight(1);
     for (float i = 0; i <= width; i += 50) {
       for (float j = 0; j <= height; j += 50) {
@@ -55,5 +57,21 @@ void draw() {
         arrow(p, v);
       }
     }
+  }
+  
+  if (showVelocity && P.nv >= 7) {
+    stroke(dgreen); strokeWeight(3);
+    vec v = A.velocity(P.G[6]);
+    arrow(P.G[6], v);
+  }
+  
+  if (showTrail && P.nv >= 7) {
+    stroke(orange); strokeWeight(3);
+    beginShape(); 
+    for (float x = 0; x <= 3.0; x += 0.02) {
+      pt p1 = A.apply(P.G[6], x);
+      vertex(p1.x, p1.y);
+    }
+    endShape(OPEN);
   }
 }

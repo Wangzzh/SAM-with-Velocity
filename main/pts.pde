@@ -120,13 +120,13 @@ class pts
     {
       arrow(G[2*a], G[2*a+1]);
     }
-    for (int a=0; a<nv/2; a++) 
+    for (int a=0; a<nv; a+=2) 
     {
       fill(white); 
-      show(G[2*a], 13); 
+      show(G[a], 13); 
       fill(black); 
-      if (a<10) label(G[2*a], str(a));  
-      else label(G[2*a], V(-5, 0), str(a));
+      if (a<10) label(G[a], str(a/2));  
+      else label(G[a], V(-5, 0), str(a/2));
     }
     noFill();
   }

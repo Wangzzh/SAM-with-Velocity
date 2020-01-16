@@ -5,6 +5,7 @@ class Affinity
   
   // SVD
   pt U1, U2, VT1, VT2, S;
+  float dc, z, l1r, l1i, l2r, l2i;
   
   Affinity() {
     M1 = new pt(); M2 = new pt(); T = new pt(); F = new pt();
@@ -20,13 +21,27 @@ class Affinity
   pt apply(pt P, float t) {
     // Not correct
     vec FP = V(F, P);
-    float sx = exp(t * S.x);
-    float sy = exp(t * S.y);
-    pt US1 = P(U1.x * sx, U1.y * sx);
-    pt US2 = P(U2.x * sy, U2.y * sy);
-    pt USVT1 = P(US1.x * VT1.x + US2.x * VT1.y, US1.y * VT1.x + US2.y * VT1.y);
-    pt USVT2 = P(US1.x * VT2.x + US2.x * VT2.y, US1.y * VT2.x + US2.y * VT2.y);
-    vec FPnew = V(USVT1.x * FP.x + USVT2.x * FP.y, USVT1.y * FP.x + USVT2.y * FP.y);
-    return P(F, FPnew);
+    float e11 = 0, e12 = 0, e21 = 0, e22 = 0;
+    if (dc >= 0) {
+      e11 = 0.5 * (exp(l1r * t) + exp(l2r * t)) + 0.5 * z / sqrt(dc) * (exp(l1r * t) - exp(l2r * t));
+      e12 = 0.5 * M2.x / sqrt(dc) * (exp(l1r * t) - exp(l2r * t));
+      e21 = 0.5 * M1.y / sqrt(dc) * (exp(l1r * t) - exp(l2r * t));
+      e22 = 0.5 * (exp(l1r * t) + exp(l2r * t)) - 0.5 * z / sqrt(dc) * (exp(l1r * t) - exp(l2r * t));
+    } else {
+      e11 = exp(l1r * t) * cos(l1i * t) + z / sqrt(-dc) * exp(l1r * t) * sin(l1i * t);
+      e12 = M2.x / sqrt(-dc) * exp(l1r * t) * sin(l1i * t);
+      e21 = M1.y / sqrt(-dc) * exp(l1r * t) * sin(l1i * t);
+      e22 = exp(l1r * t) * cos(l1i * t) - z / sqrt(-dc) * exp(l1r * t) * sin(l1i * t);
+    }
+    
+    //vec FPnew = V(e11 * FP.x + e12 * FP.y, e21 * FP.x + e22 * FP.y);
+    //if (debug) {
+    //  println("t: " + t);
+    //  println("E");
+    //  println(e11 + ", " + e12);
+    //  println(e21 + ", " + e22);
+    //}
+    pt Pnew = P(e11 * FP.x + e12 * FP.y + F.x, e21 * FP.x + e22 * FP.y + F.y);
+    return Pnew;
   }
 }

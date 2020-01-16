@@ -6,7 +6,8 @@ PImage myFace; // picture of author's face, should be: data/pic.jpg in sketch fo
 
 // ************************************************************************ COLORS 
 color black=#000000, white=#FFFFFF, // set more colors using Menu >  Tools > Color Selector
-  red=#FF0000, green=#00FF01, blue=#0300FF, yellow=#FEFF00, cyan=#00FDFF, magenta=#FF00FB, grey=#5F5F5F;
+  red=#FF0000, green=#00FF01, blue=#0300FF, yellow=#FEFF00, cyan=#00FDFF, magenta=#FF00FB, grey=#5F5F5F,
+  orange=#FF9900, dgreen=#008800;
 
 // ************************************************************************ GRAPHICS 
 void pen(color c, float w) {
