@@ -46,10 +46,9 @@ void draw() {
     stroke(black); strokeWeight(3); noFill();
     show(P.G[0], P.G[2], P.G[4]);
     
-    Q.G[3] = advectPoint(P.G[6], t, P.G[0], V(P.G[0], P.G[1]), P.G[2], V(P.G[2], P.G[3]), P.G[4], V(P.G[4], P.G[5]));
-    Q.G[4] = advectPoint(P.G[7], t, P.G[0], V(P.G[0], P.G[1]), P.G[2], V(P.G[2], P.G[3]), P.G[4], V(P.G[4], P.G[5]));
     stroke(dgreen); stroke(dgreen); strokeWeight(3);
-    arrow(Q.G[3], V(Q.G[3], Q.G[4]));
+    arrow(advectPoint(P.G[6], t, P.G[0], V(P.G[0], P.G[1]), P.G[2], V(P.G[2], P.G[3]), P.G[4], V(P.G[4], P.G[5])), 
+      advectVector(V(P.G[6], P.G[7]), P.G[6], t, P.G[0], V(P.G[0], P.G[1]), P.G[2], V(P.G[2], P.G[3]), P.G[4], V(P.G[4], P.G[5])));
   }
   stroke(black); strokeWeight(3);
   P.drawArrowsAndPoints();  
